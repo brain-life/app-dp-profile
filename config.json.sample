@@ -1,6 +1,6 @@
 {
     "dtiinit": "/N/u/hayashis/Karst/testdata/franco/dtiinit/.",
-    "dp": "/N/u/hayashis/Karst/testdata/franco/dp_optimal/fe_optimal.mat",
+    "optimal": "/N/u/hayashis/Karst/testdata/franco/dp_optimal/fe_optimal.mat",
     "afq": "/N/u/hayashis/Karst/testdata/franco/afq/output.mat"
 }
 
