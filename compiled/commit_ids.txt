@@ -1,0 +1,22 @@
+/N/u/brlife/encode-dp
+commit c6d1d676f2739ef3fa43147128452fe5bbcad7cf
+Author: Cesar Caiafa <ccaiafa@gmail.com>
+Date:   Wed Sep 6 17:26:38 2017 -0400
+
+    batch Windows version debugged
+/N/u/brlife/git/vistasoft
+commit cf75f1a8c037382d6a157f0a7b683a3fd424ee4c
+Merge: 8bea0b7 7e4a5c5
+Author: rokers <rokers@gmail.com>
+Date:   Fri Jul 13 17:13:01 2018 -0400
+
+    Merge branch 'master' of https://github.com/vistalab/vistasoft
+/N/u/brlife/git/jsonlab
+commit 474d8c824800b5f2109c08f989085cb961acdbe3
+Merge: ae7a5d9 38b24fb
+Author: Qianqian Fang <fangqq@gmail.com>
+Date:   Wed Sep 6 13:01:57 2017 -0400
+
+    Merge pull request #41 from dasantonym/master
+    
+    added package.json to be able to intall via npm package manager
