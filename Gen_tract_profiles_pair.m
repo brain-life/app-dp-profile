@@ -176,15 +176,15 @@ Node_cross2 = indcol;
 
 %% Plot tract1 profile
 Gen_profile_plot_new(Meas_tract1,'r',Meas_tract1_12,'g',Meas_tract1_orig,'k', Meas_tract1_pred,'y',tract_name1, tract_name2, 10, Nnodes, Node_cross1, measure)
-saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name1,'.fig'));
-saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name1,'.pdf'));
-saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name1,'.png'));
+saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name1,'_cross.fig'));
+saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name1,'_cross.pdf'));
+saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name1,'_cross.png'));
 
 %% Plot tract2 profile
 Gen_profile_plot_new(Meas_tract2,'b',Meas_tract2_12,'g', Meas_tract2_orig,'k',  Meas_tract2_pred,'y',tract_name2, tract_name1, 10, Nnodes, Node_cross2, measure)
-saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name2,'.fig'));
-saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name2,'.pdf'));
-saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name2,'.png'));
+saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name2,'_cross.fig'));
+saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name2,'_cross.pdf'));
+saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name2,'_cross.png'));
 
 profiles_data.tract_name1 = tract_name1;
 profiles_data.tract_name2 = tract_name2;
