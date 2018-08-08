@@ -64,7 +64,7 @@ mkdir('output/ADs')
 for n=1:Nfiles
     dwRawAligned = fullfile('output',listing(n).name);
     data_out_path = fullfile(info.output.niftis);
-    [dt6FileName]= dtiRawFitTensorMex(dwRawAligned, bvecsFile, bvalsFile, data_out_path, bs,[],'ls', [], [], 1);
+    [dt6FileName]= dtiRawFitTensorMex(dwRawAligned, bvecsFile, bvalsFile, data_out_path, bs,[],'ls', 'micron^2/msec', [], 1);
     dt = dtiLoadDt6(dt6FileName);
     val_dt6 = dt.dt6;
     [nil, eigVal] = dtiSplitTensor(val_dt6);
