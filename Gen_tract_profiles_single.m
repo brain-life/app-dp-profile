@@ -1,4 +1,4 @@
-function [] = Gen_tract_profiles_single(info, tract_name, std_parameter, measure)
+function [] = Gen_tract_profiles_single(info, tract_name, std_parameter, measure, Nnodes)
 %% measure = 'FA', 'MD','AD' or 'RD'
 %% INPUT: two crossing tracts (AFQ)
 %%  Number    Name            Full Name
@@ -96,7 +96,7 @@ end
 % Set parameters
 %std_parameter = 3;
 nameroot = 'nosub';
-Nnodes = 50;
+%Nnodes = 50;
 
 if isfield(fe.life.fit, 'weights')
     ind_nnz = find(fe.life.fit.weights);
