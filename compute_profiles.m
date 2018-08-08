@@ -17,7 +17,7 @@ end
 %# function sptensor
 
 config = loadjson('config.json')
-Nnodes = 100;
+%Nnodes = 100;
 
 disp('loading dt6.mat')
 dt6 = loadjson(fullfile(config.dtiinit, 'dt6.json'))
