@@ -130,8 +130,13 @@ filePred = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,
 fampPred = niftiRead(filePred);
 [Meas_tract_pred, ~]= Compute_FA_AlongFG(fgcx, fampPred, [], [], Nnodes);
 
+%% Compute tract profile using measure (FA,MD,etc) based on iso
+fileIso = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_pred_iso.nii.gz')))));
+fampIso = niftiRead(fileIso);
+[Meas_tract_iso, ~]= Compute_FA_AlongFG(fgcx, fampIso, [], [], Nnodes);
+
 %% Plot tract profile
-Gen_profile_plot_single(Meas_tract,'r',Meas_tract_orig,'k', Meas_tract_pred,'y',tract_name, 10, Nnodes, measure)
+Gen_profile_plot_single(Meas_tract,'r',Meas_tract_orig,'k', Meas_tract_pred,'y',Meas_tract_iso,'b',tract_name, 10, Nnodes, measure)
 saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name,'.fig'));
 saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name,'.pdf'));
 saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name,'.png'));
@@ -141,12 +146,13 @@ profiles_data.tract_name = tract_name;
 profiles_data.tract = Meas_tract;
 profiles_data.tract_orig = Meas_tract_orig;
 profiles_data.tract_pred = Meas_tract_pred;
+profiles_data.tract_iso = Meas_tract_iso;
 
 save(strcat('./results/',measure,'_',tract_name,'.mat'), 'profiles_data')
 end
 
 
-function [] = Gen_profile_plot_single(FA_tract, clr1, FA_tract_orig, clrorig, FA_pred, clrp,tract_name, s, Nnodes, measure)
+function [] = Gen_profile_plot_single(FA_tract, clr1, FA_tract_orig, clrorig, FA_pred, clrp, FA_iso, clri, tract_name, s, Nnodes, measure)
 
 N = size(FA_tract,1);
 figure
@@ -160,6 +166,9 @@ end
 if ~isempty(FA_pred)
     h4 = shadedErrorBar(1:Nnodes,nanmean(FA_pred,1),s*nanstd(FA_pred)/sqrt(N),'lineprops',clrp);
 end
+if ~isempty(FA_iso)
+    h5 = shadedErrorBar(1:Nnodes,nanmean(FA_iso,1),s*nanstd(FA_iso)/sqrt(N),'lineprops',clri);
+end
 
 %
 %legend([h1.mainLine, h2.mainLine],tract_name1,strcat(tract_name1,'+',tract_name2))
@@ -168,7 +177,7 @@ if ~isempty(FA_tract)&&isempty(FA_tract_orig)
 elseif isempty(FA_tract)
    legend([h3.mainLine, h3.mainLine],'Pred full','Orig')
 else
-   legend([h1.mainLine, h3.mainLine, h4.mainLine],tract_name,'Original','Pred Full')
+   legend([h1.mainLine, h3.mainLine, h4.mainLine, h5.mainLine],tract_name,'Original','Pred Full', 'Pred Iso')
 end
 
 

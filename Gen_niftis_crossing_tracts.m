@@ -110,6 +110,13 @@ dwi = dwiLoad(info.input.dwi_path); % load dwi structure
 diff_signal = feGet(fe,'pred full');
 Generate_nifti(ni,name,coords,dwi,diff_signal);
 
+%% Generate nifti using isotropic component only full
+name = fullfile(dataOutputPath,strcat('pred_iso.nii.gz'));
+coords = fe.roi.coords; % Get the coordinates of the nodes in each voxel of the connectome
+dwi = dwiLoad(info.input.dwi_path); % load dwi structure
+diff_signal = feGet(fe,'pred iso');
+Generate_nifti(ni,name,coords,dwi,diff_signal);
+
 %% Load classification file
 load(info.input.classification_path);
 
