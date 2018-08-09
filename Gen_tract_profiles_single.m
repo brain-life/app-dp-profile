@@ -178,8 +178,8 @@ set(gca, 'tickdir','out', 'ticklen',[0.025 0.025], ...
     'box','off','XTick', [0 round(Nnodes)/2 Nnodes], 'FontSize', 12);
 xlim(gca,[1 Nnodes]);
 if strcmp(measure,'FA')
-    ylim(gca,[0 0.8]);
-    yticks([0 0.2 0.4 0.6 0.8]);
+    ylim(gca,[0 1.0]);
+    yticks([0 0.25 0.5 0.75 1.0]);
 else
     sup_lim = 1.1*max(nanmean(FA_tract)); % set lim y axis as +10% of maximum value on profile for tract1
     ylim(gca,[0 sup_lim]);
