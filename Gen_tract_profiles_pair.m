@@ -1,4 +1,4 @@
-function [] = Gen_tract_profiles_pair(info, tract_name1, tract_name2, std_parameter, measure)
+function [] = Gen_tract_profiles_pair(info, tract_name1, tract_name2, std_parameter, measure, Nnodes)
 %% measure = 'FA', 'MD','AD' or 'RD'
 %% INPUT: two crossing tracts (AFQ)
 %%  Number    Name            Full Name
@@ -98,7 +98,7 @@ end
 % Set parameters
 %std_parameter = 3;
 nameroot = 'nosub';
-Nnodes = 50;
+%Nnodes = 50;
 
 if isfield(fe.life.fit, 'weights')
     ind_nnz = find(fe.life.fit.weights);
@@ -277,8 +277,8 @@ set(gca, 'tickdir','out', 'ticklen',[0.025 0.025], ...
     'box','off','XTick', [0 round(Nnodes)/2 Nnodes], 'FontSize', 12);
 xlim(gca,[1 Nnodes]);
 if strcmp(measure,'FA')
-    ylim(gca,[0 0.8]);
-    yticks([0 0.2 0.4 0.6 0.8]);
+    ylim(gca,[0 1.0]);
+    yticks([0 0.25 0.5 0.75 1.0]);
 else
     sup_lim = 1.1*max(nanmean(FA_tract1)); % set lim y axis as +10% of maximum value on profile for tract1
     ylim(gca,[0 sup_lim]);

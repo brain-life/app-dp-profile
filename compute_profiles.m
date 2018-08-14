@@ -17,6 +17,8 @@ end
 %# function sptensor
 
 config = loadjson('config.json')
+Nnodes = config.Nnodes;
+%Nnodes = 100;
 
 disp('loading dt6.mat')
 dt6 = loadjson(fullfile(config.dtiinit, 'dt6.json'))
@@ -63,7 +65,7 @@ mkdir('output/ADs')
 for n=1:Nfiles
     dwRawAligned = fullfile('output',listing(n).name);
     data_out_path = fullfile(info.output.niftis);
-    [dt6FileName]= dtiRawFitTensorMex(dwRawAligned, bvecsFile, bvalsFile, data_out_path, bs,[],'ls', [], [], 1);
+    [dt6FileName]= dtiRawFitTensorMex(dwRawAligned, bvecsFile, bvalsFile, data_out_path, bs,[],'ls', 'micron^2/msec', [], 1);
     dt = dtiLoadDt6(dt6FileName);
     val_dt6 = dt.dt6;
     [nil, eigVal] = dtiSplitTensor(val_dt6);
@@ -108,20 +110,20 @@ mkdir('results');
 mkdir('results/figures')
 % FA
 mkdir('results/figures/FA')
-Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'FA')
-Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'FA')
+Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'FA', Nnodes)
+Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'FA', Nnodes)
 % MD
 mkdir('results/figures/MD')
-Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'MD')
-Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'MD')
+Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'MD', Nnodes)
+Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'MD', Nnodes)
 % RD
 mkdir('results/figures/RD')
-Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'RD')
-Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'RD')
+Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'RD', Nnodes)
+Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'RD', Nnodes)
 % AD
 mkdir('results/figures/AD')
-Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'AD')
-Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'AD')
+Gen_tract_profiles_pair(info, tract1_L, tract2_L, 10, 'AD', Nnodes)
+Gen_tract_profiles_pair(info, tract1_R, tract2_R, 10, 'AD', Nnodes)
 
 %% Generate niftis for single tracts prediction
 tract_set   = 1:20; % AFQ has 20 tracts (this must be updated for using Dan segmentation)
@@ -134,10 +136,10 @@ tract_set   = 1:20; % AFQ has 20 tracts (this must be updated for using Dan segm
 for i=1:length(tract_set)
     tract_name = Get_tract_name(tract_set(i));
     disp(strcat('Gnerating single tracts profiles', tract_name))
-    Gen_tract_profiles_single(info, tract_name, 10, 'FA')
-    Gen_tract_profiles_single(info, tract_name, 10, 'MD')
-    Gen_tract_profiles_single(info, tract_name, 10, 'RD')
-    Gen_tract_profiles_single(info, tract_name, 10, 'AD')
+    Gen_tract_profiles_single(info, tract_name, 10, 'FA', Nnodes)
+    Gen_tract_profiles_single(info, tract_name, 10, 'MD', Nnodes)
+    Gen_tract_profiles_single(info, tract_name, 10, 'RD', Nnodes)
+    Gen_tract_profiles_single(info, tract_name, 10, 'AD', Nnodes)
 end
 
 end
