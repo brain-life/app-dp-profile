@@ -121,6 +121,7 @@ famp = niftiRead(file);
 [Meas_tract, SuperFiber, ~, ~] = Compute_FA_AlongFG(fgcx, famp, [], [], Nnodes);
 if ~strcp(measure,'FA') && mean(Meas_tract(:)) < 0.01
     Meas_tract = 1000*Meas_tract;
+end
 
 %% Compute tract profile using measure (FA,MD,etc)FA based on original
 fileOrig = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_original.nii.gz')))));
@@ -128,6 +129,7 @@ fampOrig = niftiRead(fileOrig);
 [Meas_tract_orig, ~]= Compute_FA_AlongFG(fgcx, fampOrig, [], [], Nnodes);
 if ~strcp(measure,'FA') && mean(Meas_tract_orig(:)) < 0.01
     Meas_tract_orig = 1000*Meas_tract_orig;
+end
 
 %% Compute tract profile using measure (FA,MD,etc) based on prediction
 filePred = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_pred_full.nii.gz')))));
@@ -135,6 +137,7 @@ fampPred = niftiRead(filePred);
 [Meas_tract_pred, ~]= Compute_FA_AlongFG(fgcx, fampPred, [], [], Nnodes);
 if ~strcp(measure,'FA') && mean(Meas_tract_pred(:)) < 0.01
     Meas_tract_pred = 1000*Meas_tract_pred;
+end
 
 %% Compute tract profile using measure (FA,MD,etc) based on iso
 fileIso = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_pred_iso.nii.gz')))));
@@ -142,6 +145,7 @@ fampIso = niftiRead(fileIso);
 [Meas_tract_iso, ~]= Compute_FA_AlongFG(fgcx, fampIso, [], [], Nnodes);
 if ~strcp(measure,'FA') && mean(Meas_tract_iso(:)) < 0.01
     Meas_tract_iso = 1000*Meas_tract_iso;
+end
 
 %% Plot tract profile
 Gen_profile_plot_single(Meas_tract,'r',Meas_tract_orig,'k', Meas_tract_pred,'y',Meas_tract_iso,'b',tract_name, 10, Nnodes, measure)
