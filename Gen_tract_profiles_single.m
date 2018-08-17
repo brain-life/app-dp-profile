@@ -119,7 +119,7 @@ fgcx = mbaComputeFibersOutliers(fgex, std_parameter, std_parameter, 100, 'mean')
 file = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(strcat(measure,'_'),tract_name,'.nii.gz')))));
 famp = niftiRead(file);
 [Meas_tract, SuperFiber, ~, ~] = Compute_FA_AlongFG(fgcx, famp, [], [], Nnodes);
-if ~strcp(measure,'FA') && mean(Meas_tract(:)) < 0.01
+if ~strcmp(measure,'FA') && mean(Meas_tract(:)) < 0.01
     Meas_tract = 1000*Meas_tract;
 end
 
@@ -127,7 +127,7 @@ end
 fileOrig = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_original.nii.gz')))));
 fampOrig = niftiRead(fileOrig);
 [Meas_tract_orig, ~]= Compute_FA_AlongFG(fgcx, fampOrig, [], [], Nnodes);
-if ~strcp(measure,'FA') && mean(Meas_tract_orig(:)) < 0.01
+if ~strcmp(measure,'FA') && mean(Meas_tract_orig(:)) < 0.01
     Meas_tract_orig = 1000*Meas_tract_orig;
 end
 
@@ -135,7 +135,7 @@ end
 filePred = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_pred_full.nii.gz')))));
 fampPred = niftiRead(filePred);
 [Meas_tract_pred, ~]= Compute_FA_AlongFG(fgcx, fampPred, [], [], Nnodes);
-if ~strcp(measure,'FA') && mean(Meas_tract_pred(:)) < 0.01
+if ~strcmp(measure,'FA') && mean(Meas_tract_pred(:)) < 0.01
     Meas_tract_pred = 1000*Meas_tract_pred;
 end
 
@@ -143,7 +143,7 @@ end
 fileIso = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_pred_iso.nii.gz')))));
 fampIso = niftiRead(fileIso);
 [Meas_tract_iso, ~]= Compute_FA_AlongFG(fgcx, fampIso, [], [], Nnodes);
-if ~strcp(measure,'FA') && mean(Meas_tract_iso(:)) < 0.01
+if ~strcmp(measure,'FA') && mean(Meas_tract_iso(:)) < 0.01
     Meas_tract_iso = 1000*Meas_tract_iso;
 end
 
