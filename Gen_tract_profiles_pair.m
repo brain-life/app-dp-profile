@@ -142,8 +142,8 @@ FileName = strcat(tract_name1, '_',tract_name2);
 file12 = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(strcat(measure,'_'),FileName,'_new.nii.gz')))));
 famp12 = niftiRead(file12);
 [Meas_tract1_12, ~]= Compute_FA_AlongFG(fgcx1, famp12, [], [], Nnodes);
-if ~strcmp(measure,'FA') && mean(Meas_tract_12(:)) < 0.01
-    Meas_tract_12 = 1000*Meas_tract_12;
+if ~strcmp(measure,'FA') && mean(Meas_tract1_12(:)) < 0.01
+    Meas_tract1_12 = 1000*Meas_tract1_12;
 end
 
 %% Compute tract profile using measure (FA,MD,etc)FA based on original
