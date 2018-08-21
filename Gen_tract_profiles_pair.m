@@ -133,32 +133,55 @@ fgcx2 = mbaComputeFibersOutliers(fgex2, std_parameter, std_parameter, 100, 'mean
 file1 = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(strcat(measure,'_'),tract_name1,'.nii.gz')))));
 famp1 = niftiRead(file1);
 [Meas_tract1, SuperFiber1, ~, ~] = Compute_FA_AlongFG(fgcx1, famp1, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract1(:)) < 0.01
+    Meas_tract1 = 1000*Meas_tract1;
+end
 
 %% Compute profile tract1 using measure (FA,MD,etc) based on tract1 + tract2 + other tracts
 FileName = strcat(tract_name1, '_',tract_name2);
 file12 = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(strcat(measure,'_'),FileName,'_new.nii.gz')))));
 famp12 = niftiRead(file12);
 [Meas_tract1_12, ~]= Compute_FA_AlongFG(fgcx1, famp12, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract1_12(:)) < 0.01
+    Meas_tract1_12 = 1000*Meas_tract1_12;
+end
 
 %% Compute tract profile using measure (FA,MD,etc)FA based on original
 fileOrig = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_original.nii.gz')))));
 fampOrig = niftiRead(fileOrig);
 [Meas_tract1_orig, ~]= Compute_FA_AlongFG(fgcx1, fampOrig, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract1_orig(:)) < 0.01
+    Meas_tract1_orig = 1000*Meas_tract1_orig;
+end
 [Meas_tract2_orig, ~]= Compute_FA_AlongFG(fgcx2, fampOrig, [], [], Nnodes);
-
+if ~strcmp(measure,'FA') && nanmean(Meas_tract2_orig(:)) < 0.01
+    Meas_tract2_orig = 1000*Meas_tract2_orig;
+end
 %% Compute profile tract2 using measure (FA,MD,etc) based on  tract 2 ONLY
 file2 = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(strcat(measure,'_'),tract_name2,'.nii.gz')))));
 famp2 = niftiRead(file2);
 [Meas_tract2, SuperFiber2, ~, ~] = Compute_FA_AlongFG(fgcx2, famp2, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract2(:)) < 0.01
+    Meas_tract2 = 1000*Meas_tract2;
+end
 
 %% Compute profile tract2 using measure (FA,MD,etc) based on tract1 + tract2 + other tracts
 [Meas_tract2_12, ~]= Compute_FA_AlongFG(fgcx2, famp12, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract2_12(:)) < 0.01
+    Meas_tract2_12 = 1000*Meas_tract2_12;
+end
 
 %% Compute tract profile using measure (FA,MD,etc) based on prediction
 filePred = deblank(ls(char(fullfile(dataPath,strcat(measure,'s'),strcat(measure,'_pred_full.nii.gz')))));
 fampPred = niftiRead(filePred);
 [Meas_tract1_pred, ~]= Compute_FA_AlongFG(fgcx1, fampPred, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract1_pred(:)) < 0.01
+    Meas_tract1_pred = 1000*Meas_tract1_pred;
+end
 [Meas_tract2_pred, ~]= Compute_FA_AlongFG(fgcx2, fampPred, [], [], Nnodes);
+if ~strcmp(measure,'FA') && nanmean(Meas_tract2_pred(:)) < 0.01
+    Meas_tract2_pred = 1000*Meas_tract2_pred;
+end
 
 %% Find tract crossing point
 A1 = reshape(SuperFiber1.fibers{1},[3,Nnodes,1]);   % 3 x N     -> 3 x N x 1
