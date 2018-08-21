@@ -18,18 +18,25 @@ end
 
 config = loadjson('config.json')
 Nnodes = config.Nnodes;
-%Nnodes = 100;
 
-disp('loading dt6.mat')
-dt6 = loadjson(fullfile(config.dtiinit, 'dt6.json'))
-aligned_dwi = fullfile(config.dtiinit, dt6.files.alignedDwRaw)
-bvecsFile = strcat(aligned_dwi(1:end-6),'bvecs');
-bvalsFile = strcat(aligned_dwi(1:end-6),'bvals');    
+if isfield(config,'dtiinit')
+    disp('using dtiinit aligned dwi')
+    dt6 = loadjson(fullfile(config.dtiinit, 'dt6.json'))
+    dwi = fullfile(config.dtiinit, dt6.files.alignedDwRaw)
+end
+
+if isfield(config,'dwi')
+    disp('using dwi')
+    dwi = config.dwi
+end
+
+bvecsFile = strcat(dwi(1:end-6),'bvecs');
+bvalsFile = strcat(dwi(1:end-6),'bvals');    
 
 info = struct;
 info.segmentation_type = 'AFQ'; % In the future we could use a more complete segmentation (more than 20 major tracts)
 info.input = struct;
-info.input.dwi_path = aligned_dwi;
+info.input.dwi_path = dwi;
 info.input.classification_path = config.afq;
 info.input.optimal = config.optimal;
 info.output = struct;
@@ -57,7 +64,7 @@ Nfiles = size(listing,1);
 bs.n = 500;
 [bs.permuteMatrix, ~, ~] = dtiBootGetPermMatrix(dlmread(bvecsFile),dlmread(bvalsFile));
 bs.showProgress = false;
-ni = niftiRead(aligned_dwi);
+ni = niftiRead(dwi);
 mkdir('output/FAs')
 mkdir('output/MDs')
 mkdir('output/RDs')
