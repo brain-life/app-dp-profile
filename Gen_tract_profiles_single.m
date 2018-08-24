@@ -153,6 +153,7 @@ saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_na
 saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name,'.pdf'));
 saveas(gcf, strcat('./results/figures/',measure,'/',measure,'_profile_',tract_name,'.png'));
 
+delete(gcf)
 
 profiles_data.tract_name = tract_name;
 profiles_data.tract = Meas_tract;

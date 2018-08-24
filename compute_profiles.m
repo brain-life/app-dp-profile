@@ -144,11 +144,15 @@ tract_set   = 1:20; % AFQ has 20 tracts (this must be updated for using Dan segm
 
 for i=1:length(tract_set)
     tract_name = Get_tract_name(tract_set(i));
-    disp(strcat('Gnerating single tracts profiles', tract_name))
+    disp([strcat('Gnerating single tracts profiles', tract_name), num2str(i),"/",num2str(length(tract_set))])
     Gen_tract_profiles_single(info, tract_name, 10, 'FA', Nnodes)
+    disp("FA profile done")
     Gen_tract_profiles_single(info, tract_name, 10, 'MD', Nnodes)
+    disp("MD profile done")
     Gen_tract_profiles_single(info, tract_name, 10, 'RD', Nnodes)
+    disp("RD profile done")
     Gen_tract_profiles_single(info, tract_name, 10, 'AD', Nnodes)
+    disp("AD profile done")
 end
-
+disp("all done")
 end
