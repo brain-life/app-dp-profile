@@ -58,6 +58,7 @@ Gen_niftis_crossing_tracts(info, tract1_R, tract2_R, other_tracts_R)
 % Generate predictions for single tracts
 Gen_niftis_single_tracts(info, tract1_L, tract2_L)
 Gen_niftis_single_tracts(info, tract1_R, tract2_R)
+disp('nifti with prediction of signal given the pair of tracts CST/SLF and all other single tracts have been generated')
 
 
 disp('step 2 - Use VITASOFT to compute FA, MD, RD, AD on predictions')
@@ -72,6 +73,8 @@ mkdir('output/MDs')
 mkdir('output/RDs')
 mkdir('output/ADs')
 for n=1:Nfiles
+    tic;
+    disp(['Computing FA, MD, RD and AD on ', listing(n).name, ' ...'])
     dwRawAligned = fullfile('output',listing(n).name);
     data_out_path = fullfile(info.output.niftis);
     [dt6FileName]= dtiRawFitTensorMex(dwRawAligned, bvecsFile, bvalsFile, data_out_path, bs,[],'ls', 'micron^2/msec', [], 1);
@@ -88,6 +91,7 @@ for n=1:Nfiles
     ni_out.dim = size(fa_val);
     ni_out.data = fa_val;
     niftiWrite(ni_out,name);
+    disp('FA done')
     
     %% Generate nifti with MD values
     name = fullfile('output/MDs',strcat('MD_',listing(n).name));
@@ -96,6 +100,7 @@ for n=1:Nfiles
     ni_out.dim = size(md_val);
     ni_out.data = md_val;
     niftiWrite(ni_out,name);
+    disp('MD done')
     
     %% Generate nifti with RD values
     name = fullfile('output/RDs',strcat('RD_',listing(n).name));
@@ -104,6 +109,7 @@ for n=1:Nfiles
     ni_out.dim = size(rd_val);
     ni_out.data = rd_val;
     niftiWrite(ni_out,name);
+    disp('RD done')
     
     %% Generate nifti with AD values
     name = fullfile('output/ADs',strcat('AD_',listing(n).name));
@@ -111,7 +117,9 @@ for n=1:Nfiles
     ni_out.fname = name;
     ni_out.dim = size(ad_val);
     ni_out.data = ad_val;
-    niftiWrite(ni_out,name);    
+    niftiWrite(ni_out,name);   
+    disp('AD done')
+    disp(['Elapsed time=', toc/60/60,' hours'])
 end
 
 disp('3- Compute and plot profiles');
